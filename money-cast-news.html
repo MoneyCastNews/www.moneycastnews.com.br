@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Money Cast News — Notícias do mercado financeiro no seu WhatsApp</title>
+<meta name="description" content="Curadoria de quem vive o mercado financeiro há quase 30 anos. Notícias em primeira mão, direto no seu WhatsApp.">
+<style>
+  :root{
+    --ink:#0D1117;
+    --ink-2:#141B26;
+    --ink-line:#26313F;
+    --paper:#F2E8D2;
+    --paper-2:#EADFC4;
+    --paper-line:#D8C9A5;
+    --gold:#C9A227;
+    --gold-bright:#E0BC3E;
+    --green:#2FB673;
+    --red:#C75450;
+    --text-light:#EDEAE3;
+    --text-light-muted:#93A0AC;
+    --text-dark:#1B1812;
+    --text-dark-muted:#6B6354;
+    --font:'Calibri', 'Carlito', 'Segoe UI', Roboto, Arial, sans-serif;
+    --container: 1080px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:var(--font);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;cursor:pointer;border:none;background:none;}
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  :focus-visible{
+    outline:2px solid var(--gold-bright);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:var(--container);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .eyebrow{
+    font-family:var(--font);
+    font-size:12.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:7px;height:7px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 3px rgba(47,182,115,.18);
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ============ HEADER ============ */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,17,23,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--container);margin:0 auto;
+  }
+  .brand{
+    font-family:var(--font);
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:.01em;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .brand .dot{color:var(--gold);}
+  .nav-cta{
+    font-family:var(--font);
+    font-size:13px;
+    font-weight:500;
+    padding:9px 18px;
+    border:1px solid var(--gold);
+    color:var(--gold-bright);
+    border-radius:3px;
+    transition:background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--gold);color:var(--ink);}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding:84px 0 0;
+    overflow:hidden;
+  }
+  .hero-chart{
+    position:absolute;
+    right:-40px; top:40px;
+    width:520px;
+    opacity:.16;
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;
+    text-align:center;
+    padding:0 0 56px;
+  }
+  .hero h1{
+    font-family:var(--font);
+    font-weight:600;
+    font-size:clamp(34px, 6vw, 60px);
+    line-height:1.08;
+    letter-spacing:-.01em;
+    max-width:780px;
+    margin:22px auto 0;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold-bright);
+  }
+  .hero p.sub{
+    font-size:17px;
+    color:var(--text-light-muted);
+    max-width:560px;
+    margin:22px auto 0;
+  }
+  .hero-ctas{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    margin-top:34px;
+  }
+  .btn{
+    font-family:var(--font);
+    font-size:14px;
+    font-weight:500;
+    padding:14px 26px;
+    border-radius:3px;
+    display:inline-flex;align-items:center;gap:9px;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--ink);
+  }
+  .btn-primary:hover{
+    background:var(--gold-bright);
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px -8px rgba(201,162,39,.55);
+  }
+  .btn-ghost{
+    border:1px solid var(--ink-line);
+    color:var(--text-light-muted);
+  }
+  .btn-ghost:hover{
+    border-color:var(--gold);
+    color:var(--gold-bright);
+  }
+
+  /* ============ TICKER ============ */
+  .ticker-section{
+    border-top:1px solid var(--ink-line);
+    border-bottom:1px solid var(--ink-line);
+    background:var(--ink-2);
+  }
+  .ticker-mask{
+    overflow:hidden;
+    white-space:nowrap;
+    padding:16px 0;
+    mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .ticker-track{
+    display:inline-flex;
+    gap:36px;
+    animation:scrollTicker 32s linear infinite;
+  }
+  @keyframes scrollTicker{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{animation-play-state:paused;}
+  }
+  .tick{
+    font-family:var(--font);
+    font-size:13.5px;
+    color:var(--text-light-muted);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tick b{color:var(--text-light);font-weight:500;}
+  .tick .up{color:var(--green);}
+  .tick .down{color:var(--red);}
+  .ticker-caption{
+    text-align:center;
+    font-family:var(--font);
+    font-size:11.5px;
+    color:#5C6675;
+    letter-spacing:.04em;
+    padding:10px 0 20px;
+  }
+
+  /* ============ SECTION shared ============ */
+  section{padding:84px 0;}
+  .section-head{
+    text-align:center;
+    max-width:620px;
+    margin:0 auto 48px;
+  }
+  .section-head h2{
+    font-family:var(--font);
+    font-weight:600;
+    font-size:clamp(26px, 4vw, 36px);
+    margin-top:16px;
+    line-height:1.18;
+  }
+  .on-paper{background:var(--paper);color:var(--text-dark);}
+  .on-paper .eyebrow{color:#9A7B1F;}
+  .on-paper .eyebrow::before{background:var(--green);box-shadow:0 0 0 3px rgba(47,182,115,.14);}
+
+  /* ============ ABOUT ============ */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:48px;
+    align-items:start;
+  }
+  .about-text p{
+    font-size:16.5px;
+    color:#3E3727;
+    margin-bottom:16px;
+  }
+  .about-text p:first-child{
+    font-family:var(--font);
+    font-size:21px;
+    color:var(--text-dark);
+    line-height:1.4;
+  }
+  .quote-card{
+    background:var(--ink);
+    color:var(--text-light);
+    border-radius:6px;
+    padding:30px 28px;
+    position:relative;
+    border-left:3px solid var(--gold);
+  }
+  .quote-card .years{
+    font-family:var(--font);
+    font-size:42px;
+    color:var(--gold-bright);
+    line-height:1;
+  }
+  .quote-card .years span{font-size:18px;color:var(--text-light-muted);margin-left:6px;}
+  .quote-card p{
+    margin-top:14px;
+    font-size:14.5px;
+    color:var(--text-light-muted);
+    line-height:1.6;
+  }
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+  }
+
+  /* ============ FEATURES ============ */
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--ink-line);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .feature{
+    background:var(--ink);
+    padding:30px 24px;
+  }
+  .feature .tag{
+    font-family:var(--font);
+    font-size:13px;
+    font-weight:600;
+    color:var(--gold-bright);
+    display:block;
+    margin-bottom:14px;
+  }
+  .feature p{
+    font-size:14.5px;
+    color:var(--text-light-muted);
+    line-height:1.55;
+  }
+  @media (max-width:860px){
+    .feature-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:520px){
+    .feature-grid{grid-template-columns:1fr;}
+  }
+
+  /* ============ PRICING ============ */
+  .price-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:760px;
+    margin:0 auto;
+  }
+  .price-card{
+    background:#FBF6E9;
+    border:1px solid var(--paper-line);
+    border-radius:8px;
+    padding:34px 28px;
+    position:relative;
+  }
+  .price-card.featured{
+    border-color:var(--gold);
+    box-shadow:0 16px 30px -16px rgba(201,162,39,.4);
+  }
+  .badge{
+    position:absolute;
+    top:-12px;right:24px;
+    background:var(--gold);
+    color:var(--ink);
+    font-family:var(--font);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.04em;
+    padding:5px 10px;
+    border-radius:3px;
+  }
+  .price-label{
+    font-family:var(--font);
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--text-dark-muted);
+  }
+  .price-value{
+    font-family:var(--font);
+    font-size:42px;
+    font-weight:600;
+    color:var(--text-dark);
+    margin:10px 0 4px;
+  }
+  .price-value sup{
+    font-family:var(--font);
+    font-size:16px;
+    font-weight:500;
+    color:var(--text-dark-muted);
+  }
+  .price-note{
+    font-size:14px;
+    color:var(--text-dark-muted);
+    margin-bottom:24px;
+  }
+  .price-card .btn-primary{width:100%;justify-content:center;}
+  @media (max-width:600px){
+    .price-grid{grid-template-columns:1fr;}
+  }
+
+  /* ============ CONTACT / FINAL ============ */
+  .final-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .pix-card{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:24px;
+  }
+  .pix-card .lbl{
+    font-family:var(--font);
+    font-size:11.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--text-light-muted);
+  }
+  .pix-card .key{
+    font-family:var(--font);
+    font-size:15px;
+    color:var(--gold-bright);
+    margin-top:8px;
+    word-break:break-all;
+    display:block;
+  }
+  .final-grid h2{
+    font-family:var(--font);
+    font-size:clamp(26px,4vw,34px);
+    line-height:1.2;
+    margin:14px 0 14px;
+  }
+  .final-grid p{color:var(--text-light-muted);font-size:15.5px;margin-bottom:24px;}
+  @media (max-width:760px){
+    .final-grid{grid-template-columns:1fr;}
+  }
+
+  footer{
+    border-top:1px solid var(--ink-line);
+    padding:32px 0;
+  }
+  .foot-inner{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  }
+  footer p{font-size:12.5px;color:#5C6675;}
+  .disclaimer{
+    font-size:11.5px;
+    color:#4A5260;
+    max-width:640px;
+    margin-top:14px;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">Money Cast<span class="dot">·</span>News</div>
+    <a class="nav-cta" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar</a>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="hero-chart" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="0,160 40,150 80,170 120,120 160,135 200,90 240,100 280,60 320,75 360,40 400,55 440,20 480,35"
+      fill="none" stroke="#C9A227" stroke-width="2"/>
+    <g stroke="#C9A227" stroke-width="1" opacity="0.6">
+      <line x1="40" y1="150" x2="40" y2="135"/>
+      <line x1="120" y1="120" x2="120" y2="105"/>
+      <line x1="200" y1="90" x2="200" y2="75"/>
+      <line x1="280" y1="60" x2="280" y2="45"/>
+      <line x1="360" y1="40" x2="360" y2="25"/>
+      <line x1="440" y1="20" x2="440" y2="8"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="eyebrow" style="justify-content:center;">MONEY CAST NEWS</div>
+    <h1>As notícias que <em>movem o mercado</em>, direto no seu WhatsApp.</h1>
+    <p class="sub">Curadoria de quem vive o mercado financeiro há quase 30 anos. Fluxo majoritariamente automatizado, fontes contratadas e seleção humana — tudo na palma da mão, em primeira mão.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar agora →</a>
+      <a class="btn btn-ghost" href="#assinar">Ver planos</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-section">
+  <div class="ticker-mask">
+    <div class="ticker-track" id="tickerTrack">
+      <span class="tick"><b>IBOVESPA</b> <span class="up">▲ 0,42%</span></span>
+      <span class="tick"><b>USD/BRL</b> <span class="down">▼ 0,18%</span></span>
+      <span class="tick">Copom mantém discussão sobre a Selic</span>
+      <span class="tick"><b>PETRÓLEO BRENT</b> <span class="up">▲ 1,1%</span></span>
+      <span class="tick">Balanços do setor bancário movimentam o pregão</span>
+      <span class="tick">Fed sinaliza cautela com o ritmo de juros</span>
+      <span class="tick"><b>S&amp;P 500</b> <span class="up">▲ 0,33%</span></span>
+      <span class="tick">Dividendos extraordinários repercutem no mercado local</span>
+    </div>
+  </div>
+  <p class="ticker-caption">EXEMPLO DO TIPO DE NOTÍCIA QUE CHEGA NO GRUPO, EM TEMPO REAL</p>
+</div>
+
+<section class="on-paper">
+  <div class="wrap about-grid">
+    <div class="about-text reveal">
+      <div class="eyebrow">QUEM ESTÁ POR TRÁS</div>
+      <h2 style="font-family:var(--font);font-size:28px;margin:16px 0 22px;line-height:1.3;">
+        Quase 30 anos de pregão, condensados em poucas notificações por dia.
+      </h2>
+      <p>O Money Cast News é feito por quem acompanha o mercado financeiro de dentro há quase três décadas — ciclos, crises, altas e reviravoltas.</p>
+      <p>Esse olhar é o que define o que entra no grupo e o que fica de fora. A maior parte do fluxo é automatizada, com provedores de notícias contratados monitorando o mercado o tempo inteiro.</p>
+      <p>A curadoria final garante que só chega até você o que realmente pode impactar o seu dia de pregão.</p>
+    </div>
+    <div class="quote-card reveal">
+      <div class="years">~30<span>anos de mercado</span></div>
+      <p>Não é um bot lendo manchetes ao acaso. É experiência de quem já viu o ciclo se repetir, decidindo o que merece a sua atenção agora.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">COMO O FLUXO FUNCIONA</div>
+      <h2>Quatro engrenagens, uma única entrega: o que importa, na hora certa.</h2>
+    </div>
+    <div class="feature-grid reveal">
+      <div class="feature">
+        <span class="tag">$CURADORIA</span>
+        <p>Notícias filtradas por quem entende o que realmente é relevante para o seu pregão — sem ruído, sem excesso.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">$AUTOMAÇÃO</span>
+        <p>A maior parte do fluxo roda de forma automatizada, monitorando o mercado em tempo integral, todos os dias.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">$FONTES</span>
+        <p>Provedores de notícias contratados, com cobertura ampla do mercado financeiro nacional e internacional.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">$VELOCIDADE</span>
+        <p>Primeira mão: as notícias chegam ao grupo antes de virarem manchete nos canais tradicionais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper" id="assinar">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">ASSINATURA</div>
+      <h2>Entre para o grupo do Money Cast News</h2>
+      <p style="margin-top:14px;color:var(--text-dark-muted);font-size:15.5px;">Escolha o plano e comece a receber as notícias hoje mesmo.</p>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price-card">
+        <div class="price-label">Plano mensal</div>
+        <div class="price-value">R$ 25<sup>,00/mês</sup></div>
+        <div class="price-note">Cobrança mensal. Cancele quando quiser.</div>
+        <a class="btn btn-primary" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar agora →</a>
+      </div>
+      <div class="price-card featured">
+        <span class="badge">2 MESES GRÁTIS</span>
+        <div class="price-label">Plano anual</div>
+        <div class="price-value">R$ 250<sup>,00/ano</sup></div>
+        <div class="price-note">O mesmo conteúdo, pelo preço de 10 meses.</div>
+        <a class="btn btn-primary" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar agora →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap final-grid">
+    <div class="reveal">
+      <div class="eyebrow">FALE ANTES DE ASSINAR</div>
+      <h2>Tem alguma dúvida? Chame no privado.</h2>
+      <p>Sem compromisso. É só mandar uma mensagem que a gente te explica como funciona o grupo e a assinatura.</p>
+      <a class="btn btn-primary" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar agora →</a>
+    </div>
+    <div class="pix-card reveal">
+      <div class="lbl">Pagamento também via PIX</div>
+      <span class="key">moneycastnews.financeiro@outlook.com</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="brand" style="font-size:16px;">Money Cast<span class="dot">·</span>News</div>
+      <p>© 2026 Money Cast News</p>
+    </div>
+    <p class="disclaimer">Money Cast News é um serviço de curadoria e distribuição de notícias do mercado financeiro. O conteúdo é informativo e não constitui recomendação de investimento.</p>
+  </div>
+</footer>
+
+<script>
+  // Duplicate ticker content once for a seamless infinite loop
+  const track = document.getElementById('tickerTrack');
+  track.innerHTML += track.innerHTML;
+
+  // Scroll-triggered reveal
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.15});
+    items.forEach(el=>obs.observe(el));
+  } else {
+    items.forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
