@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research das Corretoras — Money Cast News</title>
+<style>
+  :root{
+    --ink:#0D1117;
+    --ink-2:#141B26;
+    --ink-line:#26313F;
+    --paper:#F2E8D2;
+    --gold:#C9A227;
+    --gold-bright:#E0BC3E;
+    --green:#2FB673;
+    --red:#C75450;
+    --text-light:#EDEAE3;
+    --text-light-muted:#93A0AC;
+    --font:'Calibri', 'Carlito', 'Segoe UI', Roboto, Arial, sans-serif;
+    --container: 1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:var(--font);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 28px;}
+
+  .eyebrow{
+    font-size:12.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    justify-content:center;
+  }
+  .eyebrow::before{
+    content:'';
+    width:7px;height:7px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 3px rgba(47,182,115,.18);
+  }
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,17,23,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--container);margin:0 auto;
+  }
+  .brand{
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:.01em;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .brand .dot{color:var(--gold);}
+  .nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
+  .nav-links a{font-size:14px;color:var(--text-light-muted);transition:color .2s ease;white-space:nowrap;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold-bright);}
+  @media(max-width:680px){.nav-links{display:none;}}
+  .nav-cta{
+    font-size:13px;
+    font-weight:500;
+    padding:9px 18px;
+    border:1px solid var(--gold);
+    color:var(--gold-bright);
+    border-radius:3px;
+    white-space:nowrap;
+  }
+
+  /* HERO */
+  .hero{padding:64px 0 40px;text-align:center;}
+  .hero h1{
+    font-weight:600;
+    font-size:clamp(30px, 5vw, 48px);
+    line-height:1.12;
+    letter-spacing:-.01em;
+    max-width:820px;
+    margin:20px auto 0;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold-bright);}
+  .hero p.sub{
+    font-size:16px;
+    color:var(--text-light-muted);
+    max-width:620px;
+    margin:20px auto 0;
+  }
+  .hero-stats{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    margin-top:30px;
+  }
+  .hstat{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:12px 20px;
+    min-width:130px;
+  }
+  .hstat .num{font-size:22px;font-weight:600;color:var(--gold-bright);}
+  .hstat .label{font-size:11.5px;color:var(--text-light-muted);letter-spacing:.03em;text-transform:uppercase;margin-top:2px;}
+
+  /* TOOLBAR */
+  main{max-width:var(--container);margin:0 auto;padding:0 28px 60px;}
+  .toolbar{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:14px 16px;
+    margin:30px 0 34px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .toolbar input, .toolbar select{
+    padding:10px 14px;
+    border-radius:4px;
+    border:1px solid var(--ink-line);
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:var(--font);
+    font-size:14.5px;
+    outline:none;
+  }
+  .toolbar input{flex:1;min-width:200px;}
+  .toolbar select{min-width:190px;cursor:pointer;}
+  .toolbar input::placeholder{color:var(--text-light-muted);}
+  .toolbar input:focus, .toolbar select:focus{border-color:var(--gold);}
+  .toolbar .count{font-size:13px;color:var(--text-light-muted);white-space:nowrap;}
+
+  /* BROKER SECTIONS */
+  .broker-section{margin-bottom:44px;}
+  .broker-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--ink-line);
+  }
+  .broker-head h2{
+    font-size:20px;
+    font-weight:600;
+    color:var(--text-light);
+    letter-spacing:.01em;
+  }
+  .broker-head .broker-count{
+    font-size:12.5px;
+    color:var(--text-light-muted);
+  }
+
+  /* CARDS */
+  .card-list{display:flex;flex-direction:column;gap:12px;}
+  .card{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:20px 22px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--gold);transform:translateY(-1px);}
+  .card .categoria{
+    font-size:13px;
+    font-weight:600;
+    color:var(--gold-bright);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-bottom:6px;
+  }
+  .card .titulo{
+    font-size:16.5px;
+    font-weight:600;
+    color:var(--text-light);
+    line-height:1.35;
+  }
+  .card .resumo{
+    margin-top:10px;
+    font-size:14px;
+    color:var(--text-light-muted);
+    line-height:1.55;
+    max-width:760px;
+  }
+  .card .btn{
+    font-size:13.5px;
+    font-weight:500;
+    padding:9px 16px;
+    border-radius:3px;
+    background:var(--gold);
+    color:var(--ink);
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:background .2s ease, transform .2s ease;
+    margin-top:14px;
+  }
+  .card .btn:hover{background:var(--gold-bright);transform:translateY(-1px);}
+
+  .empty-state{text-align:center;color:var(--text-light-muted);padding:50px 0;display:none;}
+
+  footer{border-top:1px solid var(--ink-line);padding:28px 0;margin-top:20px;}
+  .foot-inner{max-width:var(--container);margin:0 auto;padding:0 28px;}
+  footer p{font-size:12.5px;color:#5C6675;}
+  .disclaimer{font-size:11.5px;color:#4A5260;max-width:720px;margin-top:10px;line-height:1.55;}
+
+  @media (max-width:560px){
+    .card-top{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">Money Cast<span class="dot">·</span>News</a>
+    <ul class="nav-links"><li><a href="cartas-gestoras.html">Cartas Gestoras</a></li><li><a href="relatorios-corretoras.html" class="active">Research Corretoras</a></li></ul>
+    <a class="nav-cta" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">RESEARCH DAS CORRETORAS</div>
+    <h1>O que as <em>corretoras</em> estão publicando, tudo num só lugar.</h1>
+    <p class="sub">Levantamento dos relatórios mais recentes publicados pelas casas de research das corretoras, organizados por categoria. Atualizado em 19/08/2026.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num" id="statBrokers">4</div><div class="label">corretoras</div></div>
+      <div class="hstat"><div class="num" id="statTotal">21</div><div class="label">itens listados</div></div>
+      <div class="hstat"><div class="num">19/08</div><div class="label">atualizado em</div></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="toolbar">
+    <input type="text" id="searchInput" placeholder="Buscar por categoria, título ou corretora...">
+    <select id="categoryFilter">
+      <option value="">Todas as categorias</option>
+    </select>
+    <div class="count"><span id="visibleCount">21</span> resultados</div>
+  </div>
+
+  <div id="brokerContainer"></div>
+  <div class="empty-state" id="emptyState">Nenhum relatório encontrado para essa busca.</div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <p>© 2026 Money Cast News — Research das Corretoras</p>
+    <p class="disclaimer">Cada card leva direto para a página da categoria no site da corretora (não para um relatório específico), onde ficam publicados os conteúdos mais recentes. Alguns conteúdos são de acesso exclusivo para clientes da respectiva corretora. Conteúdo informativo, não constitui recomendação de investimento.</p>
+  </div>
+</footer>
+
+<script>
+const DATA = [{"corretora": "XP Análise", "items": [{"categoria": "Ações", "titulo": "XP Ações", "url": "https://conteudos.xpi.com.br/acoes/", "resumo": "Relatórios, análises de resultados e recomendações sobre ações listadas na B3."}, {"categoria": "Ações", "titulo": "XP Setores", "url": "https://conteudos.xpi.com.br/acoes/setores/", "resumo": "Análises setoriais (varejo, mineração, bancos, etc.) da equipe de research da XP."}, {"categoria": "Macro e Estratégia", "titulo": "XP Estratégia de Ações", "url": "https://conteudos.xpi.com.br/estrategia-acoes/", "resumo": "Panorama semanal do Ibovespa e estratégia para o mercado de ações."}, {"categoria": "Macro e Estratégia", "titulo": "XP Internacional", "url": "https://conteudos.xpi.com.br/internacional/", "resumo": "Cobertura dos principais temas do mercado global."}, {"categoria": "Fundos Imobiliários", "titulo": "XP FIIs na Semana", "url": "https://conteudos.xpi.com.br/fiis-na-semana/", "resumo": "Resumo semanal dos destaques do mercado de fundos imobiliários."}, {"categoria": "Fundos Imobiliários", "titulo": "XP Fundos Imobiliários", "url": "https://conteudos.xpi.com.br/fundos-imobiliarios/", "resumo": "Relatórios e análises sobre fundos imobiliários (FIIs)."}, {"categoria": "BDRs / ETFs", "titulo": "XP ETFs", "url": "https://conteudos.xpi.com.br/etfs/", "resumo": "Conteúdo sobre ETFs listados no Brasil e no exterior."}, {"categoria": "Renda Fixa", "titulo": "XP Renda Fixa", "url": "https://conteudos.xpi.com.br/renda-fixa/", "resumo": "Análises de crédito e recomendações de renda fixa."}, {"categoria": "Carteiras Recomendadas", "titulo": "XP Guia de Investimentos", "url": "https://conteudos.xpi.com.br/guia-de-investimentos/", "resumo": "Relatório mensal de alocação e visão de cenário para a carteira."}, {"categoria": "Carteiras Recomendadas", "titulo": "XP Carteiras Recomendadas", "url": "https://conteudos.xpi.com.br/carteiras-recomendadas/", "resumo": "Carteiras recomendadas de ações, dividendos e small caps."}]}, {"corretora": "BTG Pactual", "items": [{"categoria": "Ações", "titulo": "BTG Ações", "url": "https://content.btgpactual.com/research/home/acoes", "resumo": "Research sobre ações listadas na B3."}, {"categoria": "Fundos Imobiliários", "titulo": "BTG Fundos Imobiliários", "url": "https://content.btgpactual.com/research/home/fundos-imobiliarios", "resumo": "Análises e recomendações de fundos imobiliários."}, {"categoria": "BDRs / ETFs", "titulo": "BTG BDRs", "url": "https://content.btgpactual.com/research/home/bdrs", "resumo": "Cobertura de BDRs negociados na B3."}, {"categoria": "Commodities", "titulo": "BTG Commodities", "url": "https://content.btgpactual.com/research/home/commodities", "resumo": "Research sobre o mercado de commodities."}, {"categoria": "Fundos de Investimento", "titulo": "BTG Fundos de Investimento", "url": "https://content.btgpactual.com/research/fundos-de-investimento", "resumo": "Análises sobre fundos de investimento."}, {"categoria": "Macro e Estratégia", "titulo": "BTG Macro e Estratégia", "url": "https://content.btgpactual.com/research/home/macro-e-estrategia", "resumo": "Visão macroeconômica e estratégia de investimentos."}, {"categoria": "Renda Fixa", "titulo": "BTG Renda Fixa", "url": "https://content.btgpactual.com/research/home/renda-fixa", "resumo": "Recomendações e análises de renda fixa."}]}, {"corretora": "Genial Investimentos", "items": [{"categoria": "Ações", "titulo": "Genial Ações", "url": "https://analisa.genialinvestimentos.com.br/acoes/", "resumo": "Análises de empresas e resultados trimestrais."}, {"categoria": "Carteiras Recomendadas", "titulo": "Genial Carteira de Ações", "url": "https://analisa.genialinvestimentos.com.br/carteiras-recomendadas/renda-variavel/", "resumo": "Carteira recomendada mensal de ações."}, {"categoria": "Fundos Imobiliários", "titulo": "Genial Fundos Imobiliários", "url": "https://analisa.genialinvestimentos.com.br/fundos-imobiliarios/", "resumo": "Boletins e análises diárias/semanais do mercado de FIIs."}, {"categoria": "Carteiras Recomendadas", "titulo": "Genial Carteira de FIIs", "url": "https://analisa.genialinvestimentos.com.br/carteiras-recomendadas/fundos-imobiliarios/", "resumo": "Carteira recomendada mensal de fundos imobiliários."}, {"categoria": "Carteiras Recomendadas", "titulo": "Genial Carteira de BDRs e ETFs", "url": "https://analisa.genialinvestimentos.com.br/carteiras-recomendadas/bdrs-e-etfs/", "resumo": "Carteira recomendada mensal de BDRs e ETFs."}, {"categoria": "Carteiras Recomendadas", "titulo": "Genial Portfólio Modelo", "url": "https://analisa.genialinvestimentos.com.br/carteiras-recomendadas/portfolio-modelo/", "resumo": "Carteiras multiativos por perfil de risco (Solidez, Dinâmica, Crescimento)."}, {"categoria": "Macro e Estratégia", "titulo": "Genial Carta Macro", "url": "https://analisa.genialinvestimentos.com.br/carta-macro/", "resumo": "Carta mensal do economista-chefe sobre o cenário macroeconômico."}, {"categoria": "Renda Fixa", "titulo": "Genial Renda Fixa", "url": "https://analisa.genialinvestimentos.com.br/renda-fixa/", "resumo": "Carteiras recomendadas e análises de renda fixa."}]}, {"corretora": "Ágora Investimentos", "items": [{"categoria": "Ações", "titulo": "Ágora Análise de Empresas", "url": "https://insights.agorainvestimentos.com.br/analisedeempresas-aberto", "resumo": "Relatórios de análise fundamentalista de empresas listadas."}]}, {"corretora": "Banco do Brasil", "items": [{"categoria": "Ações", "titulo": "BB Ações", "url": "https://investalk.bb.com.br/acoes", "resumo": "Recomendações, alertas de swing trade e panorama de ações cobertas pela equipe de research do BB Investimentos."}, {"categoria": "Carteiras Recomendadas", "titulo": "BB Carteiras Sugeridas", "url": "https://investalk.bb.com.br/carteiras-sugeridas", "resumo": "Carteiras sugeridas por perfil e estratégia: alocação, dividendos, small caps, ESG, fundamentalista e renda fixa."}, {"categoria": "Fundos Imobiliários", "titulo": "BB Fundos Imobiliários", "url": "https://investalk.bb.com.br/fiis", "resumo": "Análises de fundos imobiliários por segmento, como papel, tijolo, fundo de fundos e logística."}, {"categoria": "Renda Fixa", "titulo": "BB Crédito Privado", "url": "https://investalk.bb.com.br/credito-privado", "resumo": "Seleção de debêntures, análises de emissores por setor e conteúdo educativo sobre crédito privado."}, {"categoria": "Macro e Estratégia", "titulo": "BB Relatórios e Análises", "url": "https://investalk.bb.com.br/relatorios-e-analises", "resumo": "Estudos macroeconômicos, análises setoriais e de empresas produzidos pela equipe de research do BB."}]}, {"corretora": "Santander", "items": [{"categoria": "Renda Fixa", "titulo": "Santander Crédito Privado", "url": "https://www.santander.com.br/investimentos/relatorios-credito-privado", "resumo": "Especial de crédito privado: risco de crédito por emissor, panorama mensal de títulos incentivados e relatórios temáticos."}]}];
+
+function populateCategoryFilter() {
+  const cats = new Set();
+  DATA.forEach(b => b.items.forEach(it => cats.add(it.categoria)));
+  const select = document.getElementById('categoryFilter');
+  Array.from(cats).sort().forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    select.appendChild(opt);
+  });
+}
+
+function updateStats() {
+  document.getElementById('statBrokers').textContent = DATA.length;
+  document.getElementById('statTotal').textContent = DATA.reduce((n,b) => n + b.items.length, 0);
+}
+
+function render() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const cat = document.getElementById('categoryFilter').value;
+  const container = document.getElementById('brokerContainer');
+  const empty = document.getElementById('emptyState');
+  container.innerHTML = '';
+  let totalVisible = 0;
+
+  for (const broker of DATA) {
+    let items = broker.items;
+    if (cat) items = items.filter(it => it.categoria === cat);
+    if (q) {
+      items = items.filter(it =>
+        it.categoria.toLowerCase().includes(q) ||
+        it.titulo.toLowerCase().includes(q) ||
+        it.resumo.toLowerCase().includes(q) ||
+        broker.corretora.toLowerCase().includes(q));
+    }
+
+    if (items.length === 0) continue;
+    totalVisible += items.length;
+
+    const section = document.createElement('div');
+    section.className = 'broker-section';
+    section.innerHTML = `
+      <div class="broker-head">
+        <h2>${broker.corretora}</h2>
+        <span class="broker-count">${items.length} item(ns)</span>
+      </div>
+      <div class="card-list"></div>
+    `;
+    const list = section.querySelector('.card-list');
+    for (const item of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="categoria">${item.categoria}</div>
+        <div class="titulo">${item.titulo}</div>
+        <div class="resumo">${item.resumo}</div>
+        <a class="btn" href="${item.url}" target="_blank" rel="noopener">Acessar página →</a>
+      `;
+      list.appendChild(card);
+    }
+    container.appendChild(section);
+  }
+
+  document.getElementById('visibleCount').textContent = totalVisible;
+  empty.style.display = totalVisible === 0 ? 'block' : 'none';
+}
+
+document.getElementById('searchInput').addEventListener('input', render);
+document.getElementById('categoryFilter').addEventListener('change', render);
+populateCategoryFilter();
+updateStats();
+render();
+</script>
+
+</body>
+</html>

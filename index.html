@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Money Cast News — Notícias do mercado financeiro no seu WhatsApp</title>
-<link rel="icon" type="image/png" href="Favicon.png">  
 <meta name="description" content="Curadoria de quem vive o mercado financeiro há quase 30 anos. Notícias em primeira mão, direto no seu WhatsApp.">
 <style>
   :root{
@@ -99,6 +98,19 @@
     display:flex;align-items:baseline;gap:8px;
   }
   .brand .dot{color:var(--gold);}
+  .nav-links{
+    display:flex;align-items:center;gap:24px;
+    list-style:none;
+  }
+  .nav-links a{
+    font-size:14px;
+    color:var(--text-light-muted);
+    transition:color .2s ease;
+    white-space:nowrap;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--gold-bright);}
+  @media(max-width:680px){.nav-links{display:none;}}
+
   .nav-cta{
     font-family:var(--font);
     font-size:13px;
@@ -441,7 +453,11 @@
 
 <header>
   <div class="nav">
-    <div class="brand">Money Cast<span class="dot">·</span>News</div>
+    <a class="brand" href="index.html">Money Cast<span class="dot">·</span>News</a>
+    <ul class="nav-links">
+      <li><a href="cartas-gestoras.html">Cartas Gestoras</a></li>
+      <li><a href="relatorios-corretoras.html">Research Corretoras</a></li>
+    </ul>
     <a class="nav-cta" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar</a>
   </div>
 </header>
@@ -528,6 +544,30 @@
         <p>Primeira mão: as notícias chegam ao grupo antes de virarem manchete nos canais tradicionais.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="conteudo" style="padding:80px 0;background:var(--ink-2);border-top:1px solid var(--ink-line);border-bottom:1px solid var(--ink-line);">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:640px;margin:0 auto 44px;">
+      <div class="eyebrow" style="justify-content:center;">CONTEÚDO EXCLUSIVO</div>
+      <h2 style="font-family:var(--font);font-size:clamp(24px,4vw,34px);font-weight:600;margin-top:14px;line-height:1.2;">Além do grupo: conteúdo curado para quem leva o mercado a sério.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:880px;margin:0 auto;" class="reveal">
+      <a href="cartas-gestoras.html" style="display:block;background:var(--ink);border:1px solid var(--ink-line);border-radius:8px;padding:30px 26px;transition:border-color .2s ease,transform .2s ease;" onmouseover="this.style.borderColor='#C9A227';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='#26313F';this.style.transform='translateY(0)'">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;">CARTAS DAS GESTORAS</div>
+        <div style="font-size:20px;font-weight:600;line-height:1.25;margin-bottom:10px;">As cartas que movem o mercado, direto das gestoras.</div>
+        <div style="font-size:14px;color:var(--text-light-muted);line-height:1.55;margin-bottom:20px;">47 cartas das maiores gestoras do Brasil — Kinea, Verde, Legacy, BTG, Bahia Asset e mais — selecionadas e organizadas em um só lugar.</div>
+        <span style="font-size:13.5px;font-weight:600;color:var(--gold-bright);">Ver todas as cartas →</span>
+      </a>
+      <a href="relatorios-corretoras.html" style="display:block;background:var(--ink);border:1px solid var(--ink-line);border-radius:8px;padding:30px 26px;transition:border-color .2s ease,transform .2s ease;" onmouseover="this.style.borderColor='#C9A227';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='#26313F';this.style.transform='translateY(0)'">
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;">RESEARCH DAS CORRETORAS</div>
+        <div style="font-size:20px;font-weight:600;line-height:1.25;margin-bottom:10px;">O que as corretoras estão publicando, tudo num só lugar.</div>
+        <div style="font-size:14px;color:var(--text-light-muted);line-height:1.55;margin-bottom:20px;">21 relatórios de XP, BTG, Genial, Ágora, BB e Santander — organizados por categoria, com busca e filtros direto na página.</div>
+        <span style="font-size:13.5px;font-weight:600;color:var(--gold-bright);">Ver todos os relatórios →</span>
+      </a>
+    </div>
+    <style>@media(max-width:600px){#conteudo .wrap>div:last-child{grid-template-columns:1fr;}}</style>
   </div>
 </section>
 
