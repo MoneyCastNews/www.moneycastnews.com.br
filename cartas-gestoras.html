@@ -58,9 +58,11 @@
   }
   .nav{
     display:flex;align-items:center;justify-content:space-between;
+    gap:24px;
     padding:16px 28px;
     max-width:var(--container);margin:0 auto;
   }
+  .nav-left{display:flex;align-items:center;gap:32px;}
   .brand{
     font-weight:600;
     font-size:19px;
@@ -68,6 +70,22 @@
     display:flex;align-items:baseline;gap:8px;
   }
   .brand .dot{color:var(--gold);}
+  .nav-links{
+    display:flex;align-items:center;gap:22px;
+  }
+  .nav-links a{
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--text-light-muted);
+    padding:4px 0;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+  }
+  .nav-links a:hover{color:var(--text-light);}
+  .nav-links a.active{
+    color:var(--gold-bright);
+    border-bottom-color:var(--gold);
+  }
   .nav-cta{
     font-size:13px;
     font-weight:500;
@@ -76,6 +94,10 @@
     color:var(--gold-bright);
     border-radius:3px;
     white-space:nowrap;
+  }
+  @media (max-width:640px){
+    .nav{flex-wrap:wrap;row-gap:12px;}
+    .nav-left{gap:18px;flex-wrap:wrap;row-gap:8px;}
   }
 
   /* HERO */
@@ -225,7 +247,13 @@
 
 <header>
   <div class="nav">
-    <div class="brand">Money Cast<span class="dot">·</span>News</div>
+    <div class="nav-left">
+      <a class="brand" href="https://www.moneycastnews.com.br">Money Cast<span class="dot">·</span>News</a>
+      <nav class="nav-links">
+        <a href="cartas_gestores_mcn.html" class="active">Cartas dos Gestores</a>
+        <a href="research_corretoras_mcn.html">Research das Corretoras</a>
+      </nav>
+    </div>
     <a class="nav-cta" href="https://quemtembocainveste.com.br/cartas" target="_blank" rel="noopener">Fonte adicional</a>
   </div>
 </header>
