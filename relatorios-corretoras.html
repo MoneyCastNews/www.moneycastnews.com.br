@@ -59,9 +59,11 @@
   }
   .nav{
     display:flex;align-items:center;justify-content:space-between;
+    gap:24px;
     padding:16px 28px;
     max-width:var(--container);margin:0 auto;
   }
+  .nav-left{display:flex;align-items:center;gap:32px;}
   .brand{
     font-weight:600;
     font-size:19px;
@@ -69,10 +71,22 @@
     display:flex;align-items:baseline;gap:8px;
   }
   .brand .dot{color:var(--gold);}
-  .nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
-  .nav-links a{font-size:14px;color:var(--text-light-muted);transition:color .2s ease;white-space:nowrap;}
-  .nav-links a:hover,.nav-links a.active{color:var(--gold-bright);}
-  @media(max-width:680px){.nav-links{display:none;}}
+  .nav-links{
+    display:flex;align-items:center;gap:22px;
+  }
+  .nav-links a{
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--text-light-muted);
+    padding:4px 0;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+  }
+  .nav-links a:hover{color:var(--text-light);}
+  .nav-links a.active{
+    color:var(--gold-bright);
+    border-bottom-color:var(--gold);
+  }
   .nav-cta{
     font-size:13px;
     font-weight:500;
@@ -81,6 +95,10 @@
     color:var(--gold-bright);
     border-radius:3px;
     white-space:nowrap;
+  }
+  @media (max-width:640px){
+    .nav{flex-wrap:wrap;row-gap:12px;}
+    .nav-left{gap:18px;flex-wrap:wrap;row-gap:8px;}
   }
 
   /* HERO */
@@ -227,9 +245,13 @@
 
 <header>
   <div class="nav">
-    <a class="brand" href="index.html">Money Cast<span class="dot">·</span>News</a>
-    <ul class="nav-links"><li><a href="cartas-gestoras.html">Cartas Gestoras</a></li><li><a href="relatorios-corretoras.html" class="active">Research Corretoras</a></li></ul>
-    <a class="nav-cta" href="https://wa.me/5511958431360?text=Ol%C3%A1%21%20Quero%20assinar%20o%20Money%20Cast%20News" target="_blank" rel="noopener">Assinar</a>
+    <div class="nav-left">
+      <a class="brand" href="index.html">Money Cast<span class="dot">·</span>News</a>
+      <nav class="nav-links">
+        <a href="cartas-gestoras.html">Cartas dos Gestores</a>
+        <a href="relatorios-corretoras.html" class="active">Research das Corretoras</a>
+      </nav>
+    </div>
   </div>
 </header>
 
