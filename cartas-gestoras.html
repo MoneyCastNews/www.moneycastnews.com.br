@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartas dos Gestores — Money Cast News</title>
+<style>
+  :root{
+    --ink:#0D1117;
+    --ink-2:#141B26;
+    --ink-line:#26313F;
+    --paper:#F2E8D2;
+    --gold:#C9A227;
+    --gold-bright:#E0BC3E;
+    --green:#2FB673;
+    --text-light:#EDEAE3;
+    --text-light-muted:#93A0AC;
+    --font:'Calibri', 'Carlito', 'Segoe UI', Roboto, Arial, sans-serif;
+    --container: 1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:var(--font);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 28px;}
+
+  .eyebrow{
+    font-size:12.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    justify-content:center;
+  }
+  .eyebrow::before{
+    content:'';
+    width:7px;height:7px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 3px rgba(47,182,115,.18);
+  }
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,17,23,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:24px;
+    padding:16px 28px;
+    max-width:var(--container);margin:0 auto;
+  }
+  .nav-left{display:flex;align-items:center;gap:32px;}
+  .brand{
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:.01em;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .brand .dot{color:var(--gold);}
+  .nav-links{
+    display:flex;align-items:center;gap:22px;
+  }
+  .nav-links a{
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--text-light-muted);
+    padding:4px 0;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+  }
+  .nav-links a:hover{color:var(--text-light);}
+  .nav-links a.active{
+    color:var(--gold-bright);
+    border-bottom-color:var(--gold);
+  }
+  .nav-cta{
+    font-size:13px;
+    font-weight:500;
+    padding:9px 18px;
+    border:1px solid var(--gold);
+    color:var(--gold-bright);
+    border-radius:3px;
+    white-space:nowrap;
+  }
+  @media (max-width:640px){
+    .nav{flex-wrap:wrap;row-gap:12px;}
+    .nav-left{gap:18px;flex-wrap:wrap;row-gap:8px;}
+  }
+
+  /* HERO */
+  .hero{padding:64px 0 40px;text-align:center;}
+  .hero h1{
+    font-weight:600;
+    font-size:clamp(30px, 5vw, 48px);
+    line-height:1.12;
+    letter-spacing:-.01em;
+    max-width:780px;
+    margin:20px auto 0;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold-bright);}
+  .hero p.sub{
+    font-size:16px;
+    color:var(--text-light-muted);
+    max-width:620px;
+    margin:20px auto 0;
+  }
+  .hero-stats{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    margin-top:30px;
+  }
+  .hstat{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:12px 20px;
+    min-width:130px;
+  }
+  .hstat .num{font-size:22px;font-weight:600;color:var(--gold-bright);}
+  .hstat .label{font-size:11.5px;color:var(--text-light-muted);letter-spacing:.03em;text-transform:uppercase;margin-top:2px;}
+
+  /* TOOLBAR */
+  main{max-width:var(--container);margin:0 auto;padding:0 28px 60px;}
+  .toolbar{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:14px 16px;
+    margin:30px 0 26px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .toolbar input{
+    flex:1;
+    min-width:220px;
+    padding:10px 14px;
+    border-radius:4px;
+    border:1px solid var(--ink-line);
+    background:var(--ink);
+    color:var(--text-light);
+    font-family:var(--font);
+    font-size:14.5px;
+    outline:none;
+  }
+  .toolbar input::placeholder{color:var(--text-light-muted);}
+  .toolbar input:focus{border-color:var(--gold);}
+  .toolbar .count{font-size:13px;color:var(--text-light-muted);white-space:nowrap;}
+
+  /* CARDS */
+  .card-list{display:flex;flex-direction:column;gap:12px;}
+  .card{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:6px;
+    padding:20px 22px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--gold);transform:translateY(-1px);}
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .card .gestora{
+    font-size:13px;
+    font-weight:600;
+    color:var(--gold-bright);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-bottom:6px;
+  }
+  .card .titulo{
+    font-size:16.5px;
+    font-weight:600;
+    color:var(--text-light);
+    line-height:1.35;
+  }
+  .card .right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .card .date-tag{
+    background:rgba(201,162,39,.12);
+    color:var(--gold-bright);
+    font-size:12px;
+    font-weight:600;
+    padding:5px 11px;
+    border-radius:999px;
+    white-space:nowrap;
+    border:1px solid rgba(201,162,39,.35);
+  }
+  .card .resumo{
+    margin-top:10px;
+    font-size:14px;
+    color:var(--text-light-muted);
+    line-height:1.55;
+    max-width:760px;
+  }
+  .card .btn{
+    font-size:13.5px;
+    font-weight:500;
+    padding:9px 16px;
+    border-radius:3px;
+    background:var(--gold);
+    color:var(--ink);
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:background .2s ease, transform .2s ease;
+    margin-top:14px;
+  }
+  .card .btn:hover{background:var(--gold-bright);transform:translateY(-1px);}
+
+  .empty-state{text-align:center;color:var(--text-light-muted);padding:50px 0;display:none;}
+
+  footer{border-top:1px solid var(--ink-line);padding:28px 0;margin-top:20px;}
+  .foot-inner{max-width:var(--container);margin:0 auto;padding:0 28px;}
+  footer p{font-size:12.5px;color:#5C6675;}
+  .disclaimer{font-size:11.5px;color:#4A5260;max-width:720px;margin-top:10px;line-height:1.55;}
+
+  @media (max-width:560px){
+    .card-top{flex-direction:column;}
+    .card .right{width:100%;justify-content:space-between;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <a class="brand" href="index.html">Money Cast<span class="dot">·</span>News</a>
+      <nav class="nav-links">
+        <a href="cartas-gestoras.html" class="active">Cartas dos Gestores</a>
+        <a href="relatorios-corretoras.html">Research das Corretoras</a>
+      </nav>
+    </div>
+    <a class="nav-cta" href="https://quemtembocainveste.com.br/cartas" target="_blank" rel="noopener">Fonte adicional</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">CARTAS DOS GESTORES · JUL/OUT 2026</div>
+    <h1>As cartas que <em>movem o mercado</em>, direto das gestoras.</h1>
+    <p class="sub">Levantamento das cartas de gestão (alocação/macro) mais recentes publicadas nos sites oficiais das gestoras de fundos brasileiras, entre 01/07/2026 e 09/10/2026.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num" id="statTotal">42</div><div class="label">cartas encontradas</div></div>
+      <div class="hstat"><div class="num">14/10</div><div class="label">data do levantamento</div></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="toolbar">
+    <input type="text" id="searchInput" placeholder="Buscar por gestora ou tema da carta...">
+    <div class="count"><span id="visibleCount">42</span> resultados</div>
+  </div>
+
+  <div class="card-list" id="cardList"></div>
+  <div class="empty-state" id="emptyState">Nenhuma carta encontrada para essa busca.</div>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <p>© 2026 Money Cast News — Cartas dos Gestores</p>
+    <p class="disclaimer">Levantamento feito a partir dos sites institucionais de cada gestora e do agregador quemtembocainveste.com.br. Gestoras sem carta pública dentro do período ou sem publicação localizada foram omitidas desta lista. O conteúdo é informativo e não constitui recomendação de investimento.</p>
+  </div>
+</footer>
+
+<script>
+const DATA = [{"gestora": "Dahlia Capital", "titulo": "Quando os Regimes Mudam", "data": "2026-10-09", "url": "https://www.dahliacapital.com.br/post/quando-os-regimes-mudam", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "A Dahlia argumenta que mudanças factuais podem estar alterando o cenário de mercado, destacando o resultado surpreendente do 1º turno das eleições no Brasil, a alta dos juros americanos e a pressão inflacionária do petróleo, explicando os ajustes de risco em seus fundos."}, {"gestora": "Mongeral Aegon Investimentos", "titulo": "Carta Econômica Mensal - Setembro 2026", "data": "2026-10-09", "url": "https://d1khmaj22t9068.cloudfront.net/2026/10/09103848/Carta-Economica-MAI-Setembro-2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O Brent voltou a superar US$100 e o choque energético pressiona os juros globais; o Fed elevou juros pela primeira vez desde 2023 e o yield de 10 anos passou de 5,0%, com as eleições brasileiras dominando as expectativas para câmbio, Selic e PIB."}, {"gestora": "JGP Asset Management", "titulo": "Relatório de Setembro 2026 (Fundos de Ações)", "data": "2026-10-07", "url": "https://www.jgp.com.br/wp-content/uploads/2026/10/JGP_Relatorio-de-Gestao_Fundos-de-Acoes_Set26.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Relatório mensal atribui ganhos fortes (6,43% a 8,24%, ante 5,03% do Ibovespa) a uma posição comprada em ativos brasileiros mantida até o 1º turno das eleições e protegida com opções; após o resultado, os gestores reduziram a exposição líquida para postura mais balanceada."}, {"gestora": "Bahia Asset Management", "titulo": "Carta do Gestor (nº43)", "data": "2026-10-06", "url": "https://www.bahiaasset.com.br/cartas_do_gestor/cartadogestor-43/", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O mês foi marcado pela reprecificação dos ativos brasileiros e pela postura mais dura dos bancos centrais desenvolvidos."}, {"gestora": "Hashdex Investimentos", "titulo": "Setembro: Alta contra o vento", "data": "2026-10-06", "url": "https://www.hashdex.com.br/pt-BR/insights/setembro-alta-contra-o-vento", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O Nasdaq CME Crypto Index subiu 6,61% em setembro mesmo com alta de juros do Fed, enquanto o ouro caiu 6,84%; desempenho atribuído à exaustão de vendedores, retorno de fluxos para ETFs de Bitcoin e avanços regulatórios da SEC e CFTC."}, {"gestora": "Safra Asset Management", "titulo": "Safra Report Outubro 2026 (Ano XXVI, Nº 351)", "data": "2026-10-02", "url": "https://oespecialista.safra.com.br/wp-content/uploads/2026/10/Safra-Report-Outubro-2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O Comitê de Alocação do Safra manteve todas as posições das carteiras em outubro à espera de maior clareza eleitoral, citando as eleições, os juros americanos em máxima de cinco anos e o ritmo gradual de corte da Selic."}, {"gestora": "AZ Quest MZK Investimentos", "titulo": "AZ Quest - Cenário do Crédito Privado - Outubro 2026", "data": "2026-10-02", "url": "https://acionista.com.br/wp-content/uploads/2026/10/AZ-Quest-Cenario-do-Credito-Privado-Outubro_02.10.2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Atualização do cenário do mercado de crédito privado brasileiro referente a outubro/2026, publicada pela AZ Quest (gestora dos fundos macro e crédito, ex-MZK)."}, {"gestora": "AZ Quest Investimentos", "titulo": "Carta Mensal – Cenário do Crédito Privado (Outubro 2026)", "data": "2026-10-02", "url": "https://acionista.com.br/wp-content/uploads/2026/10/AZ-Quest-Cenario-do-Credito-Privado-Outubro_02.10.2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Carta analisa a fase de adversidade do crédito privado brasileiro em 2026, argumentando que as quedas de preço refletem mais aversão a risco do que piora de fundamentos, citando casos como Hapvida, Aegea, Tecpar, Highline e Assaí."}, {"gestora": "AZ QUEST INFRA LTDA.", "titulo": "Carta Mensal – Cenário do Crédito Privado (Outubro 2026)", "data": "2026-10-02", "url": "https://acionista.com.br/wp-content/uploads/2026/10/AZ-Quest-Cenario-do-Credito-Privado-Outubro_02.10.2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Carta do grupo AZ Quest sobre o cenário de crédito privado/infraestrutura no Brasil em 2026, destacando que as quedas de preço refletem mais aversão a risco do que deterioração de fundamentos."}, {"gestora": "Asset1 Investimentos", "titulo": "Carta da Gestão | Setembro de 2026", "data": "2026-10-02", "url": "https://www.asset1.com.br/wp-content/uploads/2026/10/CARTA-DA-GESTAO-SETEMBRO-3.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Argumenta que a alta das taxas de juros globais de longo prazo, puxada por déficits fiscais e investimento pesado em IA, é tendência global, enquanto o enfraquecimento da economia e do crédito no Brasil sustenta mais um corte de 25 pb na Selic em novembro."}, {"gestora": "Brasil Capital", "titulo": "Carta Trimestral 3T26", "data": "2026-10-01", "url": "https://brasilcapital.com/wp-content/uploads/2026/10/Carta-BC_3T26.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O fundo BC FIA subiu 14,6% no 3T26 (6,9% no ano), acima dos 8,3% do Ibovespa, com destaque positivo para Grupo Mateus, SLC Agrícola e Petrobras, e negativo para Itaú, Track & Field e Compass."}, {"gestora": "Alaska Asset Management", "titulo": "Carta Mensal - Setembro/2026", "data": "2026-09-30", "url": "https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/setembro26.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Comenta a alta dos juros nos EUA, o Ibovespa subindo 5,03% a 186.340 pontos e o corte de 25bps na Selic pelo Copom, reportando rentabilidades positivas dos fundos da gestora no mês."}, {"gestora": "Mantaro Capital", "titulo": "Comentário Mensal de Gestão - Setembro 2026", "data": "2026-09-30", "url": "https://acionista.com.br/wp-content/uploads/2026/10/021026-Mantaro_Mensal_setembro26_compressed.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "A carta relata alta de cerca de 5% do Ibovespa puxada pelo retorno do investidor estrangeiro em meio à eleição disputada, com bom desempenho dos fundos (Mantaro Ações +9,8%, LB +8,8%, Ibovespa Ativo +6,0%, Equity Hedge +3,7%)."}, {"gestora": "Occam Investimentos", "titulo": "Carta Mensal – Setembro 2026", "data": "2026-09-30", "url": "https://occambrasil.com.br/wp-content/uploads/2026/10/Carta_Mensal_Setembro__2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Choque inflacionário de energia ligado ao conflito EUA-Irã levou bancos centrais a sincronizar altas de juros, enquanto o BC brasileiro cortou a Selic em 25bps; o fundo Occam Retorno Absoluto rendeu 1,17% em setembro (108% do CDI)."}, {"gestora": "Ibiuna Investimentos", "titulo": "Ibiuna Hedge STH FIF CIC - Comentário Mensal (Setembro 2026)", "data": "2026-09-30", "url": "https://www.ibiunainvest.com.br/wp-content/uploads/fundos/RelatorioMensal_IbiunaHedgeSTHFIFCIC.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Cenário global pressionado por juros longos em alta e aperto monetário no G10, com a eleição brasileira passando a orientar os preços dos ativos; o fundo rendeu 2,11% no mês (vs. CDI de 1,08%), com destaque positivo no livro de juros."}, {"gestora": "Adam Capital", "titulo": "Carta de Gestão – Setembro 2026", "data": "2026-09-30", "url": "https://adamcapital.com.br/wp-content/uploads/2026/10/Set-2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "A gestora mantém visão construtiva para os EUA (inflação cedendo, Fed ainda cauteloso) e vê risco fiscal crescente no Brasil rumo a 2027; gerou alfa positivo liderado por bolsa global, defensiva no book local (comprada em NTN-B, vendida em USD/BRL e Ibovespa)."}, {"gestora": "ACE Capital", "titulo": "Carta Setembro 2026 - Ace Capital Absoluto", "data": "2026-09-30", "url": "https://acecapital.com.br/wp-content/uploads/Carta-Setembro-2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Fundo ganhou 2,01% no mês (9,85% em 12 meses); tese de dois anos sobre vitória de Flávio Bolsonaro no 1º turno se confirmou, gerando forte reprecificação de ativos locais; posições long em ações locais, long dólar vs cesta e juros locais."}, {"gestora": "Vista Capital", "titulo": "Carta do Gestor - Vista Macro - Setembro 2026", "data": "2026-09-30", "url": "https://docsend.com/view/xymbhaf4hq3rd5jr", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Carta mensal de setembro/2026 do fundo Vista Macro, com análise do cenário macro brasileiro e internacional e atualização de posicionamento do fundo."}, {"gestora": "Genoa Capital", "titulo": "Carta Mensal Genoa Capital - Setembro 2026", "data": "2026-09-30", "url": "https://genoacapital.com.br/docs/CartaMensalGenoaCapital_Set26.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Visão de economia americana resiliente com Fed podendo subir juros em dezembro, e desaceleração no Brasil com vitória da oposição trazendo valorização do real, queda da inflação e afrouxamento gradual da Selic."}, {"gestora": "NEO Investimentos", "titulo": "Cartas do Gestor - Setembro 2026", "data": "2026-09-30", "url": "https://www.neo.com.br/cartas-do-gestor-setembro-2026/", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Alta do petróleo e Fed mais hawkish apertam condições financeiras globais, com dólar mais forte pressionando emergentes; real foi a única moeda EM que não desvalorizou e juros locais caíram, atribuído à alta de Flávio Bolsonaro nas pesquisas."}, {"gestora": "Armor Gestora de Investimentos", "titulo": "Carta do Gestor - Setembro 2026", "data": "2026-09-30", "url": "https://www.armorcapital.com.br/api/public/pdf/cartas/carta-setembro-2026-1791408250668.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Fed hawkish sob Kevin Warsh eleva juros e fortalece o dólar, pressionando moedas emergentes e metais; no Brasil, eleição presidencial e corte de 25bps do Copom animam o mercado; gestora reduziu posições em Treasuries, cautelosa pré-eleição."}, {"gestora": "Kinea Investimentos", "titulo": "Carta do Gestor - Highlander, o guerreiro imortal", "data": "2026-09-30", "url": "https://www.kinea.com.br/blog/carta-do-gestor-highlander-guerreiro-imortal/", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Carta de setembro/2026 usa o filme Highlander como metáfora para analisar a eleição presidencial brasileira, o ajuste fiscal, a alta de juros do Fed e a IA; posicionamento inclui exposição tática à bolsa brasileira e cesta de commodities como hedge."}, {"gestora": "LETO ASSET MANAGEMENT LTDA", "titulo": "Relatório Mensal - Set/26", "data": "2026-09-30", "url": "http://www.letocapital.com.br/wp-content/uploads/2026/10/Leto_Relatorio-de-Gestao_Set26.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O relatório mostra o índice Idex-CDI abaixo do CDI pelo segundo mês seguido (1,05% vs 1,08%), pressionado por reprecificação negativa de Hapvida e Aegea no crédito de infraestrutura, segmento que a Leto ainda considera o mais atrativo do mercado de crédito."}, {"gestora": "Opportunity Asset Management", "titulo": "Carta de Gestão - Setembro 2026", "data": "2026-09-30", "url": "https://www.opportunity.com.br/content/pdf/carta_gestor/CartaGestao_202609.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "A carta analisa a alta das taxas de juros longas nos EUA e a postura cautelosa do Fed e do BCE; no Brasil destaca posicionamento comprado em NTN-Bs, ações domésticas seletivas e juros reais longos no fundo Income."}, {"gestora": "Kapitalo Investimentos", "titulo": "Carta Mensal NW3 - Setembro 2026", "data": "2026-09-30", "url": "https://www.kapitalo.com.br/wp-content/uploads/2023/07/Carta-Mensal_NW3_Setembro-2026_upload.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "A carta aponta desaceleração do M&A nos EUA; o fundo NW3 Plus Kapitalo rendeu 1,35% no mês (CDI 1,08%) e 12,90% no ano, beneficiado pelo acordo que encerrou o litígio da Warner Bros. Discovery, mantendo posições em Cia. Brasileira de Alumínio, Mills e Mitie."}, {"gestora": "Tivio Capital", "titulo": "Carta do Gestor - O Último Vermeer - Setembro de 2026", "data": "2026-09-25", "url": "https://www.tivio.com/blog/o-ultimo-vermeer/", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Usando a história de um Vermeer falsificado como metáfora, a Tivio argumenta que a qualidade de um FIDC depende da origem e verificação dos recebíveis, preocupação que cresce com a expansão acelerada do setor e o aperto dos spreads de crédito."}, {"gestora": "Persevera Asset Management", "titulo": "O Brasil não pretende reeleger Lula", "data": "2026-09-18", "url": "https://www.persevera.com.br/post/o-brasil-não-pretende-reeleger-lula", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Artigo de Lucca Silva argumenta que as pesquisas subestimam Flávio Bolsonaro, que venceria Lula num 2º turno, atribuindo a fraqueza de Lula à alta rejeição, erosão de apoio no Nordeste e à crescente preocupação dos eleitores com segurança pública."}, {"gestora": "Vinci Asset Management", "titulo": "Caminante, no hay camino (TAACo Global)", "data": "2026-09-09", "url": "https://latam.vincicompass.com/pt/publicaciones/caminante-no-hay-camino/", "obs": "Encontrada na secao \"Publicacoes\" do site latam.vincicompass.com (Vinci Compass, grupo Vinci Partners), publicada em 06/08/2026. O site tambem tem uma secao \"Perspectivas\" com notas diarias/semanais mais curtas, nao consideradas cartas mensais.", "resumo": "A carta analisa o cenário econômico misto de setembro nos EUA (desaceleração com surpresa positiva de empregos em agosto) e mantém postura construtiva para renda variável global, sobretudo nos EUA, com cautela em juros longos."}, {"gestora": "Legacy Capital", "titulo": "Carta Mensal - Agosto", "data": "2026-09-02", "url": "https://www.legacycapital.com.br/carta-mensal/agosto-8/", "obs": "Carta referente ao desempenho de julho/2026, publicada em 05/08/2026 (via API wp-json do site).", "resumo": "Agosto foi marcado pela volatilidade dos mercados globais e pela permanência dos juros reais de longo prazo em patamares elevados, em meio ao conflito no Oriente Médio."}, {"gestora": "Equitas Investimentos", "titulo": "Carta da Gestão - Setembro/2026: \"O que aprendemos errado com Warren Buffett\"", "data": "2026-09-01", "url": "https://dryscapital.com.br/insights/o-que-aprendemos-errado-com-warren-buffett", "obs": "Equitas Investimentos foi rebatizada como \"Drýs Capital\" (equitas.com.br redireciona para dryscapital.com.br); carta encontrada na seção \"insights\" do novo site", "resumo": "A carta argumenta que investidores brasileiros importaram as conclusões de Warren Buffett sem entender o regime macroeconômico estável dos EUA que as tornou válidas."}, {"gestora": "Hix Capital", "titulo": "Carta aos Investidores - 1º Semestre 2026", "data": "2026-08", "url": "https://hixcapital.com.br/wp-content/uploads/2026/08/HIX-Capital_Carta-aos-Investidores_1o-Semestre-2026.pdf", "obs": "Site hixcapital.com.br, seção \"Conteúdos\"; gestora publica cartas semestrais (não mensais); esta é a mais recente, publicada em agosto/2026 referente ao 1S26", "resumo": "Carta semestral aos investidores com balanço do primeiro semestre de 2026."}, {"gestora": "Principal Asset Management LTDA", "titulo": "Carta Mensal - Agosto 2026", "data": "2026-08", "url": "https://principalam.com.br/wp-content/uploads/carta-mensal-agosto-2026.pdf", "obs": "Data base 31/07/2026; versão de agosto/2026 (mesma URL com \"agosto\") ainda não publicada/retornou 404 no momento da consulta", "resumo": "Relatório mensal com análise macroeconômica, cenários para o Brasil e o mundo e desempenho dos fundos geridos pela Principal."}, {"gestora": "ARX Investimentos", "titulo": "Relatório de Gestão - Agosto/2026", "data": "2026-08", "url": "https://www.arxinvestimentos.com.br/content/dam/arxinvestment/documents/general/en/2026/RG_ARXInvestimentos_agosto26.pdf", "obs": "Documento elaborado em 07/08/2026 referente a julho/2026; padrão de URL descoberto diretamente (pasta content/dam/.../documents/general); não há relatório de agosto/2026 ainda", "resumo": "Relatório analisa a performance dos fundos da ARX em agosto de 2026, destacando o cenário macroeconômico internacional e brasileiro e os resultados das estratégias de renda variável, multimercados e crédito privado."}, {"gestora": "Verde Asset Management", "titulo": "Relatório de Gestão Verde (Master Macro) - Agosto 2026", "data": "2026-08", "url": "https://www.verdeasset.com.br/public/files/rel_gestao/158094/Verde-REL-2026_08.pdf", "obs": "Link direto no dominio oficial verdeasset.com.br (public/files/rel_gestao), identificado via agregador quemtembocainveste.com.br que referencia relatorios de gestao de julho/2026 publicados em 11/08/2026. Ha tambem cartas de fundos especificos (Scena XP, Acoes) do mesmo mes.", "resumo": "O fundo obteve ganhos em commodities (ouro e prata) e ações globais, enquanto enfrentava pressões de juros reais americanos e de crédito, em cenário de conflitos geopolíticos e sinalizações do Fed."}, {"gestora": "Quantitas Asset Management", "titulo": "Quantitas - Relatório de Gestão (08/2026)", "data": "2026-08", "url": "https://api.mziq.com/mzfilemanager/v2/d/5023f058-8d22-4b82-8371-19a164d09540/907a6a64-ad7c-8cd9-6d8b-01402da87ca4?origin=2", "obs": "Link direto via portal de RI (mziq). Fonte: agregador quemtembocainveste.com.br/gestora/quantitas", "resumo": "A gestora reposicionou a carteira diante da abertura de juros globais e das incertezas eleitorais brasileiras, mantendo exposição neutra em bolsa local e aproveitando oportunidades em renda fixa e câmbio."}, {"gestora": "Tera Capital", "titulo": "Carta Mensal – Atualização de Mercado (Agosto 2026)", "data": "2026-08-31", "url": "https://assets.teracapital.com.br/monthly-letters/ptbr/08-2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Carta descreve agosto como mês de crescimento global resiliente e juros longos elevados com alta de ativos de risco, enquanto no Brasil a demanda doméstica mais fraca permitiu corte de 0,25 p.p. na Selic, mas incertezas fiscais e eleitorais limitaram os ganhos locais."}, {"gestora": "ASA Investments", "titulo": "Carta de Gestão – ASA Hedge (Agosto 2026)", "data": "2026-08-31", "url": "https://www.asa.com.br/storage/documents/files/asa-hedge-i-cartadegestao-agosto26-6aa960e9deed5.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "O fundo ASA Hedge FIC subiu 1,49% em agosto/2026, resultado atribuído à desinflação nos EUA e corte esperado de juros pelo Fed, BCE hawkish em meio à inflação de energia, normalização monetária mais rápida no Japão e prêmio de risco eleitoral no Brasil."}, {"gestora": "STK Capital", "titulo": "Comentário Mensal STK Long Biased – Agosto 2026 (Nubank)", "data": "2026-08-31", "url": "https://stkcapital.com.br/wp-content/uploads/2026/09/Comentario-Mensal-STK-Long-Biased-FIC-FIA-Agosto-2026.pdf", "obs": "Atualizado em verificação de 14/10/2026.", "resumo": "Carta traz tese de investimento em Nubank, citando resultados fortes do 2T26 e oportunidades de crescimento no Brasil, México, Colômbia e EUA, além de riscos de ciclo de crédito; o fundo rendeu 0,19% em agosto contra -0,33% do Ibovespa."}, {"gestora": "Journey Capital", "titulo": "Carta Mensal - Julho/2026", "data": "2026-07", "url": "https://journeycapital.com.br/wp-content/uploads/2026/08/Carta_Mensal_Asset_JUL-26.pdf", "obs": "Site journeycapital.com.br/relatorios/; não há carta de agosto/2026 ainda", "resumo": "Carta mensal com comentários sobre alocação referente a julho/2026."}, {"gestora": "Organon Capital", "titulo": "Carta 11 - 1º Semestre 2026", "data": "2026-07-21", "url": "https://organoncapital.com.br/wp-content/uploads/2026/07/Carta_11_1S26.pdf", "obs": "Carta semestral publicada em 21/07/2026, dentro do periodo. Fonte: agregador quemtembocainveste.com.br/gestora/organon-capital", "resumo": "Carta semestral com balanço do primeiro semestre de 2026 e teses da carteira."}, {"gestora": "Oceana Investimentos", "titulo": "Carta de Gestão - 1º Semestre 2026", "data": "2026-07-13", "url": "https://www.oceanainvestimentos.com.br/mmweb/wp-content/uploads/2026/07/Carta-de-Gestao-Oceana-Investimentos-2026S1.pdf", "obs": "Secao Empresa > Carta de Gestao do site oceanainvestimentos.com.br. Gestora publica cartas semestrais (nao mensais); a do 1S26 foi publicada/modificada em 13/07/2026, dentro do periodo pedido. A carta anterior era anual, referente a 2025, publicada em fevereiro/2026.", "resumo": "Carta de gestão semestral com balanço do primeiro semestre de 2026."}, {"gestora": "Novus Capital", "titulo": "Carta de Junho 2026", "data": "2026-07-08", "url": "https://novuscapital.com.br/storage/carta-mensal/CM-Junho-2026.pdf", "obs": "Conteudo refere-se a junho/2026, publicada em 08/07/2026, dentro do periodo. Fonte: agregador quemtembocainveste.com.br/gestora/novus-capital", "resumo": "Postura tática em renda fixa nos EUA diante de sinais hawkish do Fed, com cautela no mercado acionário brasileiro."}];
+
+function formatDate(d) {
+  if (!d) return '-';
+  const parts = d.split('-');
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  if (parts.length === 3) {
+    return `${parts[2]}/${meses[parseInt(parts[1],10)-1]}/${parts[0]}`;
+  } else if (parts.length === 2) {
+    return `${meses[parseInt(parts[1],10)-1]}/${parts[0]}`;
+  }
+  return d;
+}
+
+function render(items) {
+  const list = document.getElementById('cardList');
+  const empty = document.getElementById('emptyState');
+  list.innerHTML = '';
+  document.getElementById('visibleCount').textContent = items.length;
+  if (items.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  for (const item of items) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="gestora">${item.gestora}</div>
+          <div class="titulo">${item.titulo}</div>
+        </div>
+        <span class="date-tag">${formatDate(item.data)}</span>
+      </div>
+      <div class="resumo">${item.resumo}</div>
+      <a class="btn" href="${item.url}" target="_blank" rel="noopener">Abrir carta →</a>
+    `;
+    list.appendChild(card);
+  }
+}
+
+function applyFilter() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) { render(DATA); return; }
+  const filtered = DATA.filter(item =>
+    item.gestora.toLowerCase().includes(q) ||
+    item.titulo.toLowerCase().includes(q) ||
+    item.resumo.toLowerCase().includes(q)
+  );
+  render(filtered);
+}
+
+document.getElementById('searchInput').addEventListener('input', applyFilter);
+render(DATA);
+</script>
+
+</body>
+</html>
